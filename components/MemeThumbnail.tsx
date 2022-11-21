@@ -22,7 +22,7 @@ export default function MemeThumbnail(props: ImageType) {
           onLoadingComplete={() => setLoading(false)}
         />
       </div>
-      <h3 className="mt-4 text-sm text-gray-700">{props.title}</h3>
+      <h3 className="font-bold mt-4 text-sm text-gray-700">{props.title}</h3>
       <p className="mt-1 text-sm text-gray-500">{props.description}</p>
     </a>
   );
