@@ -3,17 +3,15 @@ import { cn } from "../utils/helpers";
 import Image from "next/image";
 import { useState } from "react";
 import Head from "next/head";
+import Layout from "./Layout";
 
 export default function MemeSingle(props: ImageType) {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <>
-      <Head>
-        <title>{props.title}</title>
-      </Head>
-      <div className="flex h-screen justify-center items-center px-16 py-24">
-        <div className="flex space-x-8">
+    <Layout>
+      <div className="mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="flex space-x-4">
           <div className="relative self-start">
             <Image
               src={props.imageSrc}
@@ -30,12 +28,14 @@ export default function MemeSingle(props: ImageType) {
               onLoadingComplete={() => setLoading(false)}
             />
           </div>
-          <div className="flex flex-col self-start">
-            <h1 className="font-bold text-3xl text-gray-800">{props.title}</h1>
-            <p className="mt-6 text-lg text-gray-600">{props.description}</p>
+          <div className="flex flex-col self-start w-1/4">
+            <h1 className="font-bold text-2xl text-gray-800">{props.title}</h1>
+            <div className="mt-4">
+              <p className="text-md text-gray-600">{props.description}</p>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 }

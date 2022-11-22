@@ -1,3 +1,4 @@
+import Layout from "../components/Layout";
 import MemeThumbnail from "../components/MemeThumbnail";
 import client from "../lib/supabase";
 
@@ -21,18 +22,20 @@ export async function getStaticProps() {
 
 export default function Gallery({ images }: { images: ImageType[] }) {
   return (
-    <div className="mx-auto mx-w-2xl py-10 px-4 sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8">
-      <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        {images.map((image, key) => (
-          <MemeThumbnail
-            key={image.id}
-            description={image.description}
-            imageSrc={image.imageSrc}
-            title={image.title}
-            id={image.id}
-          />
-        ))}
+    <Layout>
+      <div className="mx-auto mx-w-2xl py-8 px-4 sm:py-12 sm:px-6 lg:max-w-7xl lg:px-8">
+        <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+          {images.map((image) => (
+            <MemeThumbnail
+              key={image.id}
+              description={image.description}
+              imageSrc={image.imageSrc}
+              title={image.title}
+              id={image.id}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
