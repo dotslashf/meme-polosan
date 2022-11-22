@@ -26,6 +26,7 @@ export default function MemeSingle(props: ImageType) {
               height="0"
               sizes="100vw"
               onLoadingComplete={() => setLoading(false)}
+              priority
             />
           </div>
           <div className="flex flex-col self-start w-1/4">
