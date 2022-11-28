@@ -3,10 +3,12 @@ import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { checkRoutePaths, cn } from "../utils/helpers";
 import { Session } from "@supabase/supabase-js";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import { useUser } from "@supabase/auth-helpers-react";
 import { Database, Profiles } from "../utils/types";
 import ProfileDropdown from "./ProfileDropdown";
 import { useRouter } from "next/router";
+import LoadingIndicator from "./LoadingIndicator";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 let navigation = [{ name: "Home", href: "/", current: false }];
 
@@ -41,16 +43,17 @@ export default function Navbar({ session }: { session: Session | null }) {
 
       if (data) {
         setUsername(data.username);
+        setLoading(false);
       }
     } catch (error) {
       alert("Error fetching profile");
-    } finally {
-      setLoading(false);
+      router.push("/");
     }
   }
 
   function handleLogout() {
     supabase.auth.signOut();
+    router.push("/");
   }
 
   return (
@@ -93,11 +96,15 @@ export default function Navbar({ session }: { session: Session | null }) {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
-                <ProfileDropdown
-                  isLoggedin={!!session}
-                  username={username}
-                  logout={handleLogout}
-                />
+                {loading ? (
+                  <LoadingIndicator />
+                ) : (
+                  <ProfileDropdown
+                    isLoggedin={!!session}
+                    username={username}
+                    logout={handleLogout}
+                  />
+                )}
               </div>
             </div>
           </div>
